@@ -1,0 +1,5 @@
+{
+  "name": "StockFit: 투자 성향 진단 서비스",
+  "description": "행동재무학 기반의 주식 투자 적합성 자가진단 및 AI 맞춤형 투자 스타일 추천 서비스",
+  "requestFramePermissions": []
+}
