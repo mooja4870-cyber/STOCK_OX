@@ -237,23 +237,36 @@ export default function App() {
                   {QUESTIONS[currentQuestionIndex].text}
                 </h3>
 
-                <div className="space-y-3">
+                <div className="space-y-3" key={currentQuestionIndex}>
                   {[
                     { label: "전혀 그렇지 않다", value: 1 },
                     { label: "그렇지 않다", value: 2 },
                     { label: "보통이다", value: 3 },
                     { label: "그렇다", value: 4 },
                     { label: "매우 그렇다", value: 5 },
-                  ].map((option) => (
-                    <button
-                      key={option.value}
-                      onClick={() => handleAnswer(QUESTIONS[currentQuestionIndex].id, option.value)}
-                      className="w-full p-5 text-left bg-white border border-gray-100 rounded-2xl hover:border-emerald-500 hover:bg-emerald-50 transition-all group flex items-center justify-between"
-                    >
-                      <span className="font-medium text-gray-700 group-hover:text-emerald-700">{option.label}</span>
-                      <ChevronRight size={18} className="text-gray-300 group-hover:text-emerald-500" />
-                    </button>
-                  ))}
+                  ].map((option) => {
+                    const isSelected = answers[QUESTIONS[currentQuestionIndex].id] === option.value;
+                    return (
+                      <button
+                        key={option.value}
+                        onClick={() => handleAnswer(QUESTIONS[currentQuestionIndex].id, option.value)}
+                        className={`w-full p-5 text-left border rounded-2xl transition-all group flex items-center justify-between ${
+                          isSelected 
+                            ? 'bg-emerald-50 border-emerald-500 shadow-sm ring-1 ring-emerald-500/10' 
+                            : 'bg-white border-gray-100 hover:border-emerald-500 hover:bg-emerald-50'
+                        }`}
+                      >
+                        <span className={`font-medium ${isSelected ? 'text-emerald-700' : 'text-gray-700'} group-hover:text-emerald-700`}>
+                          {option.label}
+                        </span>
+                        {isSelected ? (
+                          <CheckCircle2 size={18} className="text-emerald-600" />
+                        ) : (
+                          <ChevronRight size={18} className="text-gray-300 group-hover:text-emerald-500" />
+                        )}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
